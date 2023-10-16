@@ -1,4 +1,6 @@
 import json
+from flask import render_template, request
+# Define uma função para importar os valores do arquivo JSON
 
 
 def importar_tabela_valores():
@@ -6,23 +8,14 @@ def importar_tabela_valores():
         tabela_valores = json.load(arquivo)
     return tabela_valores
 
+# Função para calcular a bitola
+
 
 def calcular_bitola(corrente_nominal, metodo_instalacao):
     tabela_valores = importar_tabela_valores()
-
-    for bitola, corrente in tabela_valores.get(metodo_instalacao, []):
-        if corrente_nominal <= corrente:
-            return bitola
-    return None  # Retorna None se nenhum valor for encontrado na tabela
-
-
-# Exemplo de uso:
-corrente_nominal = 25  # Altere para o valor desejado
-metodo_instalacao = "A1_2"  # Altere para o método de instalação desejado
-bitola = calcular_bitola(corrente_nominal, metodo_instalacao)
-
-if bitola is not None:
-    print(
-        f"A bitola recomendada para {corrente_nominal} A e método de instalação {metodo_instalacao} é {bitola} mm².")
-else:
-    print("Não foi encontrada uma bitola adequada na tabela para os valores fornecidos.")
+    if metodo_instalacao in tabela_valores:
+        valores = tabela_valores[metodo_instalacao]
+        for bitola, corrente in valores:
+            if corrente_nominal <= corrente:
+                return bitola
+    return None
