@@ -14,3 +14,8 @@ def index():
 @app.route('/cabos')
 def cabos():
     return render_template("cabos.html")
+
+
+@app.route('/results', methods=["POST"])
+def results():
+    return render_template("results_cabos.html")

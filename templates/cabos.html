@@ -1,29 +1,56 @@
 {% extends 'base.html' %} {% block conted %}
 <div class="container">
-  <h1>AAAAAAA</h1>
+  <h1>Formulário de Dimensionamento</h1>
   <br /><br />
-  <form>
+  <form action="/results" method="POST">
     <div class="mb-3">
-      <label for="exampleInputEmail1" class="form-label">Email address</label>
+      <label for="correnteNominal" class="form-label"
+        >Corrente Nominal (A):</label
+      >
       <input
-        type="email"
+        type="number"
         class="form-control"
-        id="exampleInputEmail1"
-        aria-describedby="emailHelp"
+        id="correnteNominal"
+        name="correnteNominal"
+        required
       />
-      <div id="emailHelp" class="form-text">
-        We'll never share your email with anyone else.
-      </div>
     </div>
     <div class="mb-3">
-      <label for="exampleInputPassword1" class="form-label">Password</label>
-      <input type="password" class="form-control" id="exampleInputPassword1" />
+      <label for="metodoInstalacao" class="form-label"
+        >Método de Instalação:</label
+      >
+      <select
+        class="form-select"
+        id="metodoInstalacao"
+        name="metodoInstalacao"
+        required
+      >
+        <option value="A1_2">A1_2</option>
+        <option value="A1_3">A1_3</option>
+        <option value="A2_2">A2_2</option>
+        <option value="A1_3">A1_3</option>
+        <option value="B1_2">B1_2</option>
+        <option value="B1_3">B1_3</option>
+        <option value="B2_2">B2_2</option>
+        <option value="B2_3">B2_3</option>
+        <option value="C_2">C_2</option>
+        <option value="C_3">C_3</option>
+        <option value="D_2">D_2</option>
+        <option value="D_3">D_3</option>
+      </select>
     </div>
-    <div class="mb-3 form-check">
-      <input type="checkbox" class="form-check-input" id="exampleCheck1" />
-      <label class="form-check-label" for="exampleCheck1">Check me out</label>
+    <div class="mb-3">
+      <label for="tipoIsolador" class="form-label">Tipo de Isolador:</label>
+      <select
+        class="form-select"
+        id="tipoIsolador"
+        name="tipoIsolador"
+        required
+      >
+        <option value="PVC">PVC</option>
+      </select>
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary">Enviar</button>
   </form>
 </div>
 {% endblock %}
