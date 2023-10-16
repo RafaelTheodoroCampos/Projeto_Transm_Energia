@@ -1,11 +1,19 @@
 
-from tabelas import tabela36_pvc
+import unittest
+import json
+
+
+def importar_tabela_valores():
+    with open('../data/tabela36_pvc.json', 'r') as arquivo:
+        tabela_valores = json.load(arquivo)
+    return tabela_valores
+
+
+class TestImportacaoTabela(unittest.TestCase):
+    def test_importacao_bem_sucedida(self):
+        tabela = importar_tabela_valores()
+        self.assertIsNotNone(tabela)
 
 
 if __name__ == "__main__":
-    tabela = tabela36_pvc
-    if tabela:
-        print("Importação bem-sucedida!")
-        print(tabela)  # Isso imprimirá o conteúdo do JSON na saída padrão
-    else:
-        print("Falha na importação.")
+    unittest.main()

@@ -4,7 +4,7 @@ from flask import render_template, request
 
 
 def importar_tabela_valores():
-    with open('../tabelas/Tabela36_PVC.json', 'r') as arquivo:
+    with open('C:\\Users\\rafae\\Desktop\\Eng_Ele\\projetoie\\Projeto_inst.E\\data\\tabela36_pvc.json', 'r') as arquivo:
         tabela_valores = json.load(arquivo)
     return tabela_valores
 
