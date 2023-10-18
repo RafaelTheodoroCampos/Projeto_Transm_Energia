@@ -4,9 +4,13 @@
   <h1>Escolha a ferramenta desejada</h1>
 
   <div class="col-sm-6 p-5">
-    <div class="card">
-      <img src="../imgs/cabo.jpg" class="card-img-top" alt="img_cabo" />
-      <div class="card-body">
+    <div class="card d-flex justify-content-center align-items-center p-2">
+      <img
+        src="{{ url_for('static', filename='cabo.jpg') }}"
+        class="img-fluid w-50"
+        alt="img_cabo"
+      />
+      <div class="card-body bg-light text-center p-2">
         <h5 class="card-title">Dimensionamento De Cabos</h5>
         <p class="card-text">
           Queda de tensão, bitola, corrente de curto e muito mais
@@ -16,9 +20,9 @@
     </div>
   </div>
   <div class="col-sm-6 p-5">
-    <div class="card">
-      <img src="..." class="card-img-top" alt="..." />
-      <div class="card-body">
+    <div class="card d-flex justify-content-center align-items-center p-2">
+      <img src="..." class="img-fluid w-50" alt="..." />
+      <div class="card-body bg-light text-center p-2">
         <h5 class="card-title">Special title treatment</h5>
         <p class="card-text">
           With supporting text below as a natural lead-in to additional content.

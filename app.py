@@ -1,7 +1,10 @@
-from flask import Flask, render_template, request
-from functions.bitola import calcular_bitola
+from flask import Flask, Response, redirect, render_template, request
 
-app = Flask(__name__)
+from functions.bitola import calcular_bitola
+# Importe a função do arquivo pdf_generator
+
+
+app = Flask(__name__, static_url_path='/static', static_folder='static')
 
 if __name__ == '__main__':
     app.run(debug=True)
@@ -21,7 +24,10 @@ def cabos():
 def results():
     corrente_nominal = float(request.form['correnteNominal'])
     metodo_instalacao = request.form['metodoInstalacao']
-
+    # Padrão para 30°C se não especificado
+    temperatura = float(request.form.get('temperatura', 30))
+    # Padrão para 1.0 se não especificado
+    fator_agrupamento = float(request.form.get('fatorAgrupamento', 1.0))
     # Use a função calcular_bitola para obter a bitola
     bitola = calcular_bitola(corrente_nominal, metodo_instalacao)
 
