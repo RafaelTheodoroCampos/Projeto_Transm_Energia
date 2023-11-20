@@ -1,0 +1,304 @@
+{% extends 'base.html' %} {% block conted %}
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+/>
+<style>
+  .custom-container {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+    margin-top: 50px;
+  }
+</style>
+<body>
+  <div class="container custom-container">
+    <h1 class="text-center mb-4">Calculadora de Linha de Transmissão</h1>
+    <form action="/resultadolt" method="post">
+      <div class="container mb-4">
+        <h4>Informações do Projeto</h4>
+        <div class="form-group">
+          <label for="nome_projeto">Nome do Projeto:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="nome_projeto"
+            name="nome_projeto"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="tipo_metodo">Tipo de Método:</label>
+          <select class="custom-select" name="tipo_metodo">
+            <option value="MetodoImagens">Método das Imagens</option>
+            <option value="MetodoCarson">Carson</option>
+          </select>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="container">
+              <h4>Tipo de Dados Exibidos</h4>
+              <div class="form-group">
+                <div class="form-check">
+                  <input
+                    type="checkbox"
+                    class="form-check-input"
+                    id="output_z"
+                    name="output_z"
+                    value="Matriz de Impedância [Z]"
+                  />
+                  <label class="form-check-label" for="output_z"
+                    >Matriz de Impedância [Z]</label
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="container">
+              <h4>Modelo</h4>
+              <div class="form-group">
+                <div class="form-check">
+                  <input
+                    type="checkbox"
+                    class="form-check-input"
+                    id="transposicao"
+                    name="transposicao"
+                    value="Transposição"
+                  />
+                  <label class="form-check-label" for="transposicao"
+                    >Transposição</label
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="container">
+          <h4>Dados Padrão</h4>
+          <div class="form-group">
+            <label for="rho">Rho [Ohm]:</label>
+            <input
+              type="number"
+              step="any"
+              class="form-control"
+              id="rho"
+              name="rho"
+              value="1000"
+            />
+          </div>
+          <div class="form-group">
+            <label for="freq">Freq [Hz]:</label>
+            <input
+              type="number"
+              step="any"
+              class="form-control"
+              id="freq"
+              name="freq"
+              value="60"
+            />
+          </div>
+          <div class="form-group">
+            <label for="distancia">Distância [km]:</label>
+            <select class="form-control" name="tipo_distancia">
+              <option value="LinhaCurta">Linha Curta [0 a 80 km]</option>
+              <option value="Media">Média [80 a 240 km]</option>
+              <option value="Longa">Longa [Acima de 240 km]</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="tensao">Tensão [kV]:</label>
+            <input
+              type="number"
+              step="any"
+              class="form-control"
+              id="tensao"
+              name="tensao"
+              value="138"
+            />
+          </div>
+        </div>
+        
+      </div>
+      <div class="container mt-4">
+        <div class="form-group d-flex align-items-center">
+          <h4 class="mb-0">Dados dos Condutores</h4>
+          <button
+            type="button"
+            class="btn btn-link ml-2"
+            data-toggle="collapse"
+            data-target="#ajudaText"
+            aria-expanded="false"
+            aria-controls="ajudaText"
+          >
+            <i class="fas fa-question-circle"></i>
+          </button>
+        </div>
+        <div class="collapse" id="ajudaText">
+          <div class="card card-body">
+            <p><strong>R_fase:</strong> Raio do condutor.</p>
+            <p><strong>H_fase:</strong> Altura do condutor até o solo.</p>
+            <p><strong>D_mid:</strong> Distância do condutor até o centro da torre de transmissão.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="container"> 
+        
+        
+        
+        <table class="table table-bordered">
+        
+        <thead>
+          <tr>
+            <th>Fase</th>
+            <th>R_Fase[cm]</th>
+            <th>H_Fase [m]</th>
+            <th>D_Mid [m]</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <select class="form-control" name="n_fase">
+                <option value="A">A</option>
+                
+              </select>
+            </td>
+            <td>
+              <input type="number" step="any" class="form-control" name="raio_condutor[]">
+            </td>
+            <td>
+              <input type="number" step="any" class="form-control" name="altura_condutor[]">
+            </td>
+            <td>
+              <input type="number" step="any" class="form-control" name="condutor_centro[]">
+            </td>
+            
+          </tr>
+          <tr>
+            <td>
+              <select class="form-control" name="n_fase">
+                
+                
+                <option value="B">B</option>
+                
+              </select>
+            </td>
+            <td>
+              <input type="number" step="any" class="form-control" name="raio_condutor[]">
+            </td>
+            <td>
+              <input type="number" step="any" class="form-control" name="altura_condutor[]">
+            </td>
+            <td>
+              <input type="number" step="any" class="form-control" name="condutor_centro[]">
+            </td>
+            
+          </tr>
+          <tr>
+            <td>
+              <select class="form-control" name="n_fase">
+                
+                <option value="C">C</option>
+              </select>
+            </td>
+            <td>
+              <input type="number" step="any" class="form-control" name="raio_condutor[]">
+            </td>
+            <td>
+              <input type="number" step="any" class="form-control" name="altura_condutor[]">
+            </td>
+            <td>
+              <input type="number" step="any" class="form-control" name="condutor_centro[]">
+            </td>
+            
+          </tr>
+          <tr class="linha-extra" style="display: none;">
+            <td>
+              <select class="form-control" name="n_fase">
+                <option value="W">W</option>
+              </select>
+            </td>
+            <td>
+              <input type="number" step="any" class="form-control" name="raio_condutor[]">
+            </td>
+            <td>
+              <input type="number" step="any" class="form-control" name="altura_condutor[]">
+            </td>
+            <td>
+              <input type="number" step="any" class="form-control" name="condutor_centro[]">
+            </td>
+           
+            
+          </tr>
+          <tr class="linha-extra" style="display: none;">
+            <td>
+              <select class="form-control" name="n_fase">
+                <option value="W2">W2</option>
+              </select>
+            </td>
+            <td>
+              <input type="number" step="any" class="form-control" name="raio_condutor[]">
+            </td>
+            <td>
+              <input type="number" step="any" class="form-control" name="altura_condutor[]">
+            </td>
+            <td>
+              <input type="number" step="any" class="form-control" name="condutor_centro[]">
+            </td>
+           
+            
+          </tr>
+        </tbody>
+      </table>
+      
+      <div>
+        <button type="button" class="btn btn-secondary" onclick="adicionarLinha()">Adicionar Cabo para Raio</button>
+        <button type="button" class="btn btn-danger" onclick="removerUltimaLinha()">Remover Último Cabo para Raio</button>
+      </div>
+      
+      <script>
+        let contadorLinhas = 0;
+      
+        function adicionarLinha() {
+          const linhasExtras = document.querySelectorAll('.linha-extra');
+          if (contadorLinhas < linhasExtras.length) {
+            linhasExtras[contadorLinhas].style.display = 'table-row';
+            contadorLinhas++;
+          } else {
+            const novaLinha = document.createElement('tr');
+            novaLinha.className = 'linha-extra';
+            novaLinha.innerHTML = `
+              <td>
+                <select class="form-control" name="n_fase">
+                  <option value="W">W</option>
+                </select>
+              </td>
+              <!-- ... (os outros campos) -->
+            `;
+            document.getElementById('tabela-corpo').appendChild(novaLinha);
+            contadorLinhas++;
+          }
+        }
+      
+        function removerUltimaLinha() {
+          if (contadorLinhas > 0) {
+            const linhasExtras = document.querySelectorAll('.linha-extra');
+            linhasExtras[contadorLinhas - 1].style.display = 'none';
+            contadorLinhas--;
+          }
+        }
+      </script>
+        
+        
+      <div class="text-center mt-4">
+        <button type="submit" class="btn btn-primary">Calcular</button>
+      </div>
+    </form>
+  <!-- jQuery e Bootstrap JS (coloque no final do body para melhor performance) -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+{% endblock %}

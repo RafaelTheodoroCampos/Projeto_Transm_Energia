@@ -11,11 +11,6 @@ def importar_tabela_valores():
 # Função para calcular a bitola
 
 
-def calcular_bitola(corrente_nominal, metodo_instalacao):
-    tabela_valores = importar_tabela_valores()
-    if metodo_instalacao in tabela_valores:
-        valores = tabela_valores[metodo_instalacao]
-        for bitola, corrente in valores:
-            if corrente_nominal <= corrente:
-                return bitola
+def calcular_bitola():
+
     return None

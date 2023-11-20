@@ -1,0 +1,19 @@
+{% extends 'base.html' %} {% block conted %}
+<h1>Resultados</h1>
+{% if dist_imagens is not none and dist_entre_condutores is not none %}
+<h2>Distâncias até a imagem:</h2>
+<ul>
+  {% for dist_imagem in dist_imagens %}
+  <li>{{ dist_imagem }}</li>
+  {% endfor %}
+</ul>
+
+<h2>Distâncias entre condutores:</h2>
+<ul>
+  {% for dist_entre_condutor in dist_entre_condutores %}
+  <li>{{ dist_entre_condutor }}</li>
+  {% endfor %}
+</ul>
+{% else %}
+<p>Não há dados disponíveis para exibir.</p>
+{% endif %} {% endblock %}
