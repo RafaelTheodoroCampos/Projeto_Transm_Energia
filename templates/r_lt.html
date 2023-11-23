@@ -1,6 +1,6 @@
 {% extends 'base.html' %} {% block conted %}
 <title>Relatório de Engenharia</title>
-<!-- Link para o Bootstrap CSS -->
+
 <link
   href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
   rel="stylesheet"
@@ -13,49 +13,58 @@
     margin-top: 50px;
   }
   .result-item {
-    margin-bottom: 10px;
+    margin-bottom: 20px;
   }
 </style>
+
 <body>
   <div class="container custom-container">
-    <h1 class="text-center mb-4">Relatório de Engenharia</h1>
+    <h1 class="text-center mb-4">Relatório Resultados</h1>
 
-    <!-- Exemplo de exibição de distâncias até a imagem -->
     <div class="result-item">
-      <h2>Distâncias até a imagem:</h2>
-      <ul>
-        {% for dist_imagem in dist_imagens %}
-        <li>{{ dist_imagem }} metros</li>
-        {% endfor %}
-      </ul>
+      <h2>Distâncias Entre os Condutores:</h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Condutores</th>
+            <th>Distância (metros)</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for i in range(dist_entre_condutores|length) %} {% set distancia =
+          dist_entre_condutores[i] %} {% if distancia %}
+          <tr>
+            <td>{{ condutores[i] }}</td>
+            <td>{{ distancia }}</td>
+          </tr>
+          {% endif %} {% endfor %}
+        </tbody>
+      </table>
     </div>
 
-    <!-- Exemplo de exibição de distâncias entre condutores -->
     <div class="result-item">
-      <h2>Distâncias entre condutores:</h2>
-      <ul>
-        {% for dist_entre_condutor in dist_entre_condutores %}
-        <li>{{ dist_entre_condutor }} metros</li>
-        {% endfor %}
-      </ul>
+      <h2>Distâncias entre as Imagens dos Condutores:</h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Imagens dos Condutores</th>
+            <th>Distância (metros)</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for i in range(dist_imagens|length) %} {% set distancia =
+          dist_imagens[i] %} {% if distancia %}
+          <tr>
+            <td>{{ condutores[i] }}im</td>
+            <td>{{ distancia }}</td>
+          </tr>
+          {% endif %} {% endfor %}
+        </tbody>
+      </table>
     </div>
 
-    <!-- Adicione mais seções conforme necessário para outros dados do relatório -->
-
-    <!-- Exemplo de outra seção -->
-    <div class="result-item">
-      <h2>Outra Seção:</h2>
-      <ul>
-        <!-- Loop para exibir dados dinâmicos -->
-        {% for outro_dado in outros_dados %}
-        <li>{{ outro_dado }}</li>
-        {% endfor %}
-      </ul>
-    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   </div>
-
-  <!-- Link para o Bootstrap JS e jQuery -->
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 {% endblock %}

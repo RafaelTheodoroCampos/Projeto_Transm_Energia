@@ -25,9 +25,9 @@ def transmissao():
 
 @app.route('/resultadolt', methods=['GET', 'POST'])
 def resultadolt():
-    dist_imagens, dist_entre_condutores = calcular_distancias()
 
-    return render_template('r_lt.html', dist_imagens=dist_imagens, dist_entre_condutores=dist_entre_condutores)
+    distancias_ate_imagem, distancias_entre_condutores, nome_distancia_condutores = calcular_distancias()
+    return render_template('r_lt.html', dist_imagens=distancias_ate_imagem, dist_entre_condutores=distancias_entre_condutores, condutores=nome_distancia_condutores)
 
 
 if __name__ == '__main__':
