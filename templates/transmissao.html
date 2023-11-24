@@ -47,8 +47,7 @@
         <div class="form-group">
           <label for="tipo_metodo">Tipo de Método:</label>
           <select class="custom-select" name="tipo_metodo">
-            <option value="MetodoImagens">Método das Imagens</option>
-            <option value="MetodoCarson">Carson</option>
+            <option value="param_log">Parametros Longitudinais (LT's)</option>
           </select>
         </div>
         <div class="row">
@@ -63,6 +62,8 @@
                     id="output_z"
                     name="output_z"
                     value="Matriz de Impedância [Z]"
+                    checked 
+                    disabled
                   />
                   <label class="form-check-label" for="output_z"
                     >Matriz de Impedância [Z]</label
@@ -82,6 +83,8 @@
                     id="transposicao"
                     name="transposicao"
                     value="Transposição"
+                    checked 
+                    disabled
                   />
                   <label class="form-check-label" for="transposicao"
                     >Transposição</label
@@ -92,7 +95,7 @@
           </div>
         </div>
         <div class="container">
-          <h4>Dados Padrão</h4>
+          <h4>Dados Da Linha de Transmissão</h4>
           <div class="form-group">
             <label for="rho">Rho [Ohm]:</label>
             <input
@@ -102,6 +105,7 @@
               id="rho"
               name="rho"
               value="1000"
+              required
             />
           </div>
           <div class="form-group">
@@ -113,12 +117,13 @@
               id="freq"
               name="freq"
               value="60"
+              required
             />
           </div>
           <div class="form-group">
             <label for="distancia">Distância [km]:</label>
             <select class="form-control" name="tipo_distancia">
-              <option value="LinhaCurta">Linha Curta [0 a 80 km]</option>
+              <option value="Linha Curta">Linha Curta [0 a 80 km]</option>
               <option value="Media">Média [80 a 240 km]</option>
               <option value="Longa">Longa [Acima de 240 km]</option>
             </select>
@@ -132,6 +137,40 @@
               id="tensao"
               name="tensao"
               value="138"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="form-control">Raio Do Condutor:</label>
+            <input
+              type="number"
+              step="any"
+              class="form-control"
+              id="r_condutor"
+              name="r_condutor"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="form-control">Raio Médio Geométrico:</label>
+            <input
+              type="number"
+              step="any"
+              class="form-control"
+              id="rmg"
+              name="rmg"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="rd">Rd:</label>
+            <input
+              type="number"
+              step="any"
+              class="form-control"
+              id="rd"
+              name="rd"
+              required
             />
           </div>
         </div>
@@ -153,9 +192,9 @@
         </div>
         <div class="collapse" id="ajudaText">
           <div class="card card-body">
-            <p><strong>R_fase:</strong> Raio do condutor.</p>
-            <p><strong>H_fase:</strong> Altura do condutor até o solo.</p>
-            <p><strong>D_mid:</strong> Distância do condutor até o centro da torre de transmissão.</p>
+            <p><strong>H_fase:</strong> Altura do condutor até o solo(Eixo Y).</p>
+            <p><strong>D_mid:</strong> Distância do condutor até o centro da torre de transmissão(Eixo X).</p>
+            <p><strong>!:</strong> Atenção, não colocar distâncias iguais de x e y para os condutors.</p>
           </div>
         </div>
       </div>
@@ -165,7 +204,6 @@
           <thead>
             <tr>
               <th scope="col">Fase</th>
-              <th scope="col">R_Fase [cm]</th>
               <th scope="col">H_Fase [m]</th>
               <th scope="col">D_Mid [m]</th>
             </tr>
@@ -173,19 +211,16 @@
           <tbody id="tabela-corpo">
             <tr>
               <td><input class="form-control fase-input" type="text" value="A" readonly></td>
-              <td><input class="form-control" type="number" name="raio_condutor[]" required></td>
               <td><input class="form-control" type="number" name="altura_condutor[]" required></td>
               <td><input class="form-control" type="number" name="condutor_centro[]" required></td>
             </tr>
             <tr>
               <td><input class="form-control fase-input" type="text" value="B" readonly></td>
-              <td><input class="form-control" type="number" name="raio_condutor[]" required></td>
               <td><input class="form-control" type="number" name="altura_condutor[]" required></td>
               <td><input class="form-control" type="number" name="condutor_centro[]" required></td>
             </tr>
             <tr>
               <td><input class="form-control fase-input" type="text" value="C" readonly></td>
-              <td><input class="form-control" type="number" name="raio_condutor[]" required></td>
               <td><input class="form-control" type="number" name="altura_condutor[]" required></td>
               <td><input class="form-control" type="number" name="condutor_centro[]" required></td>
             </tr>
@@ -212,7 +247,6 @@ function adicionarLinha() {
     novaLinha.className = 'linha-extra';
     novaLinha.innerHTML = `
       <td><input class="form-control fase-input" type="text" value="${contadorLinhas === 0 ? 'W' : 'W1'}" readonly></td>
-      <td><input class="form-control" type="number" name="raio_condutor[]" required></td>
       <td><input class="form-control" type="number" name="altura_condutor[]" required></td>
       <td><input class="form-control" type="number" name="condutor_centro[]" required></td>
     `;
@@ -237,6 +271,7 @@ function removerUltimaLinha() {
     document.querySelector('.btn-secondary').disabled = false;
   }
 }
+
   </script>
         
       

@@ -20,49 +20,75 @@
 <body>
   <div class="container custom-container">
     <h1 class="text-center mb-4">Relatório Resultados</h1>
-
-    <div class="result-item">
-      <h2>Distâncias Entre os Condutores:</h2>
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Condutores</th>
-            <th>Distância (metros)</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for i in range(dist_entre_condutores|length) %} {% set distancia =
-          dist_entre_condutores[i] %} {% if distancia %}
-          <tr>
-            <td>{{ condutores[i] }}</td>
-            <td>{{ distancia }}</td>
-          </tr>
-          {% endif %} {% endfor %}
-        </tbody>
-      </table>
+    <div class="container custom-container border rounded p-4 shadow-sm bg-light">
+      <h2 class="text-center mb-4 display-4">{{ dados.nome_projeto }}</h2>
+      <div class="row">
+        <div class="col-md-6">
+          <h3>Distância da linha:</h3>
+          <p>{{ dados.distancia }}</p>
+        </div>
+        <div class="col-md-6">
+          <h3>Tensão da linha [kV]:</h3>
+          <p>{{ dados.tensao_linha }}</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <h3>Frequência [Hz]:</h3>
+          <p>{{ dados.freq }}</p>
+        </div>
+        <div class="col-md-6">
+          <h3>Data:</h3>
+          <p>{{ dados.data}}</p>
+        </div>
+      </div>
+      
+      <hr> <!-- Linha horizontal para separar os dados -->
+      
+      <h3>Informações do Projeto:</h3>
+      <p>Matriz de impedância [Z] pelos métodos das imagens e de Carson.</p>
+      <p>Transposição: Sim</p>
     </div>
-
-    <div class="result-item">
-      <h2>Distâncias entre as Imagens dos Condutores:</h2>
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Imagens dos Condutores</th>
-            <th>Distância (metros)</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for i in range(dist_imagens|length) %} {% set distancia =
-          dist_imagens[i] %} {% if distancia %}
-          <tr>
-            <td>{{ condutores[i] }}im</td>
-            <td>{{ distancia }}</td>
-          </tr>
-          {% endif %} {% endfor %}
-        </tbody>
-      </table>
-    </div>
-
+    
+    <div class="container custom-container">
+      <div class="result-item">
+        <h2>Distâncias Entre os Condutores:</h2>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Condutores</th>
+              <th>Distância (metros)</th>
+              <th>Distância das Imagens (metros)</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for i in range(dist_entre_condutores|length) %} {% set
+            distancia_entre = dist_entre_condutores[i] %} {% set
+            distancia_imagens = dist_imagens[i] %} {% if distancia_entre and
+            distancia_imagens %}
+            <tr>
+              <td>{{ condutores[i] }}</td>
+              <td>{{ distancia_entre }}</td>
+              <td>{{ distancia_imagens }}</td>
+            </tr>
+            {% endif %} {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <div class="container">
+        <h1>Método das imagens: Matriz de Impedância</h1>
+        <table class="table table-bordered">
+          <tbody>
+            {% for row in dados.Z_solo %}
+            <tr>
+              {% for value in row %}
+              <td>{{ value }}</td>
+              {% endfor %}
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   </div>

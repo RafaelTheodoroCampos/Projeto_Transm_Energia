@@ -49,16 +49,12 @@ def calcular_distancias():
             nome_distancia_condutores.append(nome)
             distancias_entre_condutores.append(distancia)
 
-    # Resultado
-    print("Nomes das distâncias entre condutores:", distancias_entre_condutores)
-    print("Valores das distâncias até a imagem:", distancias_ate_imagem)
-    for i in range(len(distancias_entre_condutores)):
-        for j in range(i, len(alturas_condutores)):
-            if i == j:
-                continue
-            print("AA", i, j)
             distancia_imagem = round(
-                ((distancias_entre_condutores[i] ** 2) + (2 * alturas_condutores[j]) ** 2) ** 0.5, 2)
+                ((distancia ** 2) + (2 * alturas_condutores[i]) ** 2) ** 0.5, 2)
             distancias_ate_imagem.append(distancia_imagem)
 
+    print("Distancia img", distancias_ate_imagem)
+    print("Distancia condutor", distancias_entre_condutores)
+    print("Nome", nome_distancia_condutores)
+    print("altura_condutor", alturas_condutores)
     return distancias_ate_imagem, distancias_entre_condutores, nome_distancia_condutores
