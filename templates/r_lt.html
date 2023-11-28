@@ -20,7 +20,9 @@
 <body>
   <div class="container custom-container">
     <h1 class="text-center mb-4">Relatório Resultados</h1>
-    <div class="container custom-container border rounded p-4 shadow-sm bg-light">
+    <div
+      class="container custom-container border rounded p-4 shadow-sm bg-light"
+    >
       <h2 class="text-center mb-4 display-4">{{ dados.nome_projeto }}</h2>
       <div class="row">
         <div class="col-md-6">
@@ -42,14 +44,15 @@
           <p>{{ dados.data}}</p>
         </div>
       </div>
-      
-      <hr> <!-- Linha horizontal para separar os dados -->
-      
+
+      <hr />
+      <!-- Linha horizontal para separar os dados -->
+
       <h3>Informações do Projeto:</h3>
       <p>Matriz de impedância [Z] pelos métodos das imagens e de Carson.</p>
       <p>Transposição: Sim</p>
     </div>
-    
+
     <div class="container custom-container">
       <div class="result-item">
         <h2>Distâncias Entre os Condutores:</h2>
@@ -76,7 +79,35 @@
         </table>
       </div>
       <div class="container">
-        <h1>Método das imagens: Matriz de Impedância</h1>
+        <div>
+          <h1 class="text-center mb-4">
+            Método das Imagens em Linhas de Transmissão
+          </h1>
+          <img
+            src="{{ url_for('static', filename='imagens.jpg') }} "
+            class="img-fluid w-50 mx-auto d-block"
+            alt="img_imagens"
+          />
+          <p>
+            O método das imagens é uma ferramenta valiosa para simplificar o
+            cálculo de impedância em linhas de transmissão. Ele se baseia na
+            introdução de condutores "imaginários" para facilitar os cálculos
+            dos campos eletromagnéticos ao redor dos condutores reais, em contra
+            partida apresenta resultados que tangem a realidade
+          </p>
+          <ul>
+            <li>
+              O solo é representado por um condutor ideal com resistividade nula
+              (ρ = 0).
+            </li>
+            <li>
+              Toda corrente retorna por um condutor ideal com distância em
+              relação a superfície do solo igual a altura do condutor.
+            </li>
+          </ul>
+        </div>
+
+        <h1>Matriz de Impedância</h1>
         <table class="table table-bordered">
           <tbody>
             {% for row in dados.Z_solo %}
@@ -88,9 +119,108 @@
             {% endfor %}
           </tbody>
         </table>
-      
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+      </div>
+      <hr />
+      <div class="container">
+        <div>
+          <h1 class="text-center mb-4">
+            Método das Carson em Linhas de Transmissão
+          </h1>
+          <img
+            src="{{ url_for('static', filename='carson.jpg') }} "
+            class="img-fluid w-50 mx-auto d-block"
+            alt="img_imagens"
+          />
+          <p>
+            O Método de Carson é utilizado no cálculo das impedâncias de linhas
+            de transmissão e assume o solo com resistividade diferente de zero,
+            levendo em conta assim a distribuição real aproximada da corrente no
+            solo.
+          </p>
+          <ul>
+            <li>
+              Estas correções são dadas em termos de séries infinitas, cujos
+              termos são função da frequência, da resistividade do solo e da
+              geometria dos condutores.
+            </li>
+            <li>
+              Por aproximação, considera-se normalmente apenas o primeiro termo
+              de cada série.
+            </li>
+          </ul>
+        </div>
+
+        <h1>Matriz de Impedância, sem trasposição</h1>
+        <table class="table table-bordered">
+          <tbody>
+            {% for row in dados.Z_solo_carson %}
+            <tr>
+              {% for value in row %}
+              <td>{{ value }}</td>
+              {% endfor %}
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <h1>Resultado P/linha 300km</h1>
+      <table class="table table-bordered">
+        <tbody>
+          {% for row in dados.Z_ntransposta %}
+          <tr>
+            {% for value in row %}
+            <td>{{ value }}</td>
+            {% endfor %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <hr />
+  <div class="container">
+    <div>
+      <h1 class="text-center mb-4">Trasposição em Linhas de Tramissão</h1>
+      <img
+        src="{{ url_for('static', filename='transpo.jpg') }} "
+        class="img-fluid w-50 mx-auto d-block"
+        alt="img_imagens"
+      />
+      <p>
+        Em linhas de transmissão trifásicas, as impedâncias próprias e mútuas
+        variam entre si, mesmo quando alimentam uma carga perfeitamente
+        equilibrada. Isso resulta em um desequilíbrio nas impedâncias, causando
+        correntes assimétricas nas fases.
+      </p>
+      <ul>
+        <li>
+          Ao alterar a disposição física das fases, reduz-se a discrepância
+          entre as impedâncias, promovendo uma distribuição mais equilibrada das
+          correntes.
+        </li>
+        <li>
+          De acordo com a NBR5422, LT de comprimento superio a 100km devem ser
+          traspostas com um ciclo completo.
+        </li>
+        <li>
+          Impactos Potenciais: Aquecimento adicional em máquinas trifásicas.
+          Corrente circulante nos neutros aterrados de equipamentos.
+          Possibilidade de interferência em circuitos próximos à linha.
+        </li>
+      </ul>
+    </div>
+    <h1>Matriz de Impedância Trasposta P/linha 300km</h1>
+    <table class="table table-bordered">
+      <tbody>
+        {% for row in dados.Z_transposta %}
+        <tr>
+          {% for value in row %}
+          <td>{{ value }}</td>
+          {% endfor %}
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
   </div>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 {% endblock %}

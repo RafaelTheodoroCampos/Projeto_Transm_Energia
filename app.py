@@ -1,6 +1,7 @@
 from flask import Flask, Response, redirect, render_template, request
 from functions.calculolt import calcular_distancias
 from functions.metodo_img import metododasimagens
+from functions.carson import metodocarson
 import datetime
 # Importe a função do arquivo pdf_generator
 
@@ -37,10 +38,14 @@ def resultadolt():
     tensao_linha = request.form['tensao']
     distancia = request.form['tipo_distancia']
     freq = request.form['freq']
+    Z_solo_carson, Z_transposta, Z_ntransposta = metodocarson()
     Z_solo = metododasimagens()
     dados = {
         'nome_projeto': nome_projeto,
         'Z_solo': Z_solo,
+        'Z_solo_carson': Z_solo_carson,
+        'Z_transposta': Z_transposta,
+        'Z_ntransposta': Z_ntransposta,
         'tensao_linha': tensao_linha,
         'freq': freq,
         'distancia': distancia,
