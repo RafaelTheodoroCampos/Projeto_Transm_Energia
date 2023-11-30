@@ -18,16 +18,16 @@ def index():
 
 @app.route('/cabos')
 def cabos():
-    return render_template("cabos.html")
+    return render_template("dimensionamento_Cabos/cabos.html")
 
 
 @app.route('/longituginais')
 def longituginais():
-    return render_template("longituginais.html")
+    return render_template("linhas_transmissao/longituginais.html")
 
 @app.route('/transversais')
 def transversais():
-    return render_template("transversais.html")
+    return render_template("linhas_transmissao/transversais.html")
 
 @app.route('/resultadolt_long', methods=['GET', 'POST'])
 def resultadolt_long():
@@ -60,12 +60,12 @@ def resultadolt_long():
         'data': data_formatada}
 
     distancias_ate_imagem, distancias_entre_condutores, nome_distancia_condutores = calcular_distancias()
-    return render_template('r_lt_long.html', dist_imagens=distancias_ate_imagem, dist_entre_condutores=distancias_entre_condutores, condutores=nome_distancia_condutores,
+    return render_template('linhas_transmissao/r_lt_long.html', dist_imagens=distancias_ate_imagem, dist_entre_condutores=distancias_entre_condutores, condutores=nome_distancia_condutores,
                            dados=dados)
 
 @app.route('/escolhametodo')
 def escolhametodo():
-    return render_template("escolhametodo.html")
+    return render_template("linhas_transmissao/escolhametodo.html")
 
 
 @app.route('/resultadolt_tran', methods=['GET', 'POST'])
@@ -93,7 +93,7 @@ def resultadolt_tran():
         'data': data_formatada}
 
     distancias_ate_imagem, distancias_entre_condutores, nome_distancia_condutores = calcular_distancias()
-    return render_template('r_lt_tran.html', dist_imagens=distancias_ate_imagem, dist_entre_condutores=distancias_entre_condutores, condutores=nome_distancia_condutores,
+    return render_template('linhas_transmissao/r_lt_tran.html', dist_imagens=distancias_ate_imagem, dist_entre_condutores=distancias_entre_condutores, condutores=nome_distancia_condutores,
                            dados=dados)
 
 

@@ -1,1 +1,164 @@
-{% extends 'base.html' %} {% block conted %} {% endblock %}
+
+{% extends 'base.html' %} {% block conted %}
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+/>
+<style>
+  .custom-container {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+    margin-top: 50px;
+  }
+</style>
+<style>
+  .loading-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+  }
+  .loading-text {
+    color: white;
+  }
+</style>
+<body>
+  <div class="container custom-container">
+    <h1 class="text-center mb-4">Dimensionamentos de Condutores</h1>
+    <form id="myform" action="#" method="post">
+      <div class="container mb-4">
+        <h4>Informações do Projeto</h4>
+        <div class="form-group">
+          <label for="nome_projeto">Nome do Projeto:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="nome_projeto"
+            name="nome_projeto"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="tipo_metodo">Tipo de Método:</label>
+          <select class="custom-select" name="tipo_metodo">
+            <option value="param_log">Parametros Transversais (LT's)</option>
+          </select>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="container">
+              <h4>Tipo de Dados Exibidos</h4>
+              <div class="form-group">
+                <div class="form-check">
+                  <input
+                    type="checkbox"
+                    class="form-check-input"
+                    id="output_z"
+                    name="output_z"
+                    value="Matriz Shunt [Z]"
+                    checked 
+                    disabled
+                  />
+                  <label class="form-check-label" for="output_z"
+                    >Matriz Shunt [C]</label
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="container">
+              <h4>Modelo</h4>
+              <div class="form-group">
+                <div class="form-check">
+                  <input
+                    type="checkbox"
+                    class="form-check-input"
+                    id="transposicao"
+                    name="transposicao"
+                    value="Transposição"
+                    checked 
+                    disabled
+                  />
+                  <label class="form-check-label" for="transposicao"
+                    >Transposição</label
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="container">
+          <h4>Dados Da Linha de Transmissão</h4>
+          
+          <div class="form-group">
+            <label for="freq">Freq [Hz]:</label>
+            <input
+              type="number"
+              step="any"
+              class="form-control"
+              id="freq"
+              name="freq"
+              value="60"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="distancia">Distância [km]:</label>
+            <select class="form-control" name="tipo_distancia" >
+              <option value="Linha Curta[0 a 80 km]">Linha Curta [0 a 80 km]</option>
+              <option value="Linha Média[80 a 240 km]">Média [80 a 240 km]</option>
+              <option value="Linha Longa[Acima de 240 km]">Longa [Acima de 240 km]</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="tensao">Tensão [kV]:</label>
+            <input
+              type="number"
+              step="any"
+              class="form-control"
+              id="tensao"
+              name="tensao"
+              value="138"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="form-control">Raio Do Condutor:</label>
+            <input
+              type="number"
+              step="any"
+              class="form-control"
+              id="r_condutor"
+              name="r_condutor"
+              required
+            />
+          </div>
+          
+        </div>
+        
+ 
+      
+      
+      <div class="text-center mt-4">
+        <button type="submit" class="btn btn-primary">Calcular</button>
+      </div>
+    </form>
+
+
+        
+      
+  <!-- jQuery e Bootstrap JS (coloque no final do body para melhor performance) -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+{% endblock %}
