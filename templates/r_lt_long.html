@@ -6,6 +6,24 @@
   rel="stylesheet"
 />
 <style>
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 10px;
+      font-size: 18px;
+    }
+   .slidervalue {
+      font-size: 24px;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+    /* Estilizando a exibição do valor */
+    #distanceValue {
+      display: block;
+      text-align: center;
+      font-size: 24px;
+      margin-top: 10px;
+    }
   .custom-container {
     border: 1px solid #ddd;
     border-radius: 5px;
@@ -88,14 +106,14 @@
             class="img-fluid w-50 mx-auto d-block"
             alt="img_imagens"
           />
-          <p>
+          <p style="font-size: 16px;">
             O método das imagens é uma ferramenta valiosa para simplificar o
             cálculo de impedância em linhas de transmissão. Ele se baseia na
             introdução de condutores "imaginários" para facilitar os cálculos
             dos campos eletromagnéticos ao redor dos condutores reais, em contra
-            partida apresenta resultados que tangem a realidade
+            partida apresenta resultados que tangem a realidade.
           </p>
-          <ul>
+          <ul style="font-size: 16px;">
             <li>
               O solo é representado por um condutor ideal com resistividade nula
               (ρ = 0).
@@ -131,13 +149,13 @@
             class="img-fluid w-50 mx-auto d-block"
             alt="img_imagens"
           />
-          <p>
+          <p style="font-size: 16px;">
             O Método de Carson é utilizado no cálculo das impedâncias de linhas
             de transmissão e assume o solo com resistividade diferente de zero,
             levendo em conta assim a distribuição real aproximada da corrente no
             solo.
           </p>
-          <ul>
+          <ul style="font-size: 16px;">
             <li>
               Estas correções são dadas em termos de séries infinitas, cujos
               termos são função da frequência, da resistividade do solo e da
@@ -184,13 +202,13 @@
         class="img-fluid w-50 mx-auto d-block"
         alt="img_imagens"
       />
-      <p>
+      <p style="font-size: 16px;">
         Em linhas de transmissão trifásicas, as impedâncias próprias e mútuas
         variam entre si, mesmo quando alimentam uma carga perfeitamente
         equilibrada. Isso resulta em um desequilíbrio nas impedâncias, causando
         correntes assimétricas nas fases.
       </p>
-      <ul>
+      <ul style="font-size: 16px;">
         <li>
           Ao alterar a disposição física das fases, reduz-se a discrepância
           entre as impedâncias, promovendo uma distribuição mais equilibrada das
@@ -218,8 +236,25 @@
         </tr>
         {% endfor %}
       </tbody>
+      
     </table>
+    <div
+      class="container custom-container border">
+      <h1 class="text-center mb-4" >Comparação Gráfica</h1>
+      <p style="font-size: 16px;">
+        Este gráfico visa ilustrar graficamente os resultados da transposição em linhas aéreas. A linha vermelha e azul representam as mútuas de um LT não transposto, enquanto a linha verde reflete o efeito da transposição.
+      </p>
+      <div class="grafico" style="text-align: center;">
+        <img src="data:image/png;base64,{{ dados.plot_encoded }}" alt="Gráfico de Impedâncias">
+      
+   
+    </div>
+  
+    
   </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>

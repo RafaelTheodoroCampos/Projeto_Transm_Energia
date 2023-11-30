@@ -1,7 +1,8 @@
-from flask import Flask, Response, redirect, render_template, request
+from flask import Flask, Response, jsonify, redirect, render_template, request
 from functions.calculolt import calcular_distancias
 from functions.metodo_img import metododasimagens
-from functions.carson import metodocarson
+from functions.carson import metodocarson, calcular_impedancia, grafico
+from functions.shunt import capacitancia
 import datetime
 # Importe a função do arquivo pdf_generator
 
@@ -20,13 +21,16 @@ def cabos():
     return render_template("cabos.html")
 
 
-@app.route('/transmissao')
-def transmissao():
-    return render_template("transmissao.html")
+@app.route('/longituginais')
+def longituginais():
+    return render_template("longituginais.html")
 
+@app.route('/transversais')
+def transversais():
+    return render_template("transversais.html")
 
-@app.route('/resultadolt', methods=['GET', 'POST'])
-def resultadolt():
+@app.route('/resultadolt_long', methods=['GET', 'POST'])
+def resultadolt_long():
     data_atual = datetime.datetime.now()
     dia = data_atual.day
     mes = data_atual.month
@@ -38,7 +42,10 @@ def resultadolt():
     tensao_linha = request.form['tensao']
     distancia = request.form['tipo_distancia']
     freq = request.form['freq']
-    Z_solo_carson, Z_transposta, Z_ntransposta = metodocarson()
+    Z_solo_carson, Z_transposta, Z_ntransposta, Z_solo_carson_complex, Z_solo_transposta_complex = metodocarson()
+    impedancias1, impedancias2, impedancias3 = calcular_impedancia(Z_solo_carson_complex, Z_solo_transposta_complex)
+    plot_encoded = grafico(impedancias1, impedancias2, impedancias3)
+   
     Z_solo = metododasimagens()
     dados = {
         'nome_projeto': nome_projeto,
@@ -47,12 +54,48 @@ def resultadolt():
         'Z_transposta': Z_transposta,
         'Z_ntransposta': Z_ntransposta,
         'tensao_linha': tensao_linha,
+        'plot_encoded': plot_encoded,
         'freq': freq,
         'distancia': distancia,
         'data': data_formatada}
 
     distancias_ate_imagem, distancias_entre_condutores, nome_distancia_condutores = calcular_distancias()
-    return render_template('r_lt.html', dist_imagens=distancias_ate_imagem, dist_entre_condutores=distancias_entre_condutores, condutores=nome_distancia_condutores, dados=dados)
+    return render_template('r_lt_long.html', dist_imagens=distancias_ate_imagem, dist_entre_condutores=distancias_entre_condutores, condutores=nome_distancia_condutores,
+                           dados=dados)
+
+@app.route('/escolhametodo')
+def escolhametodo():
+    return render_template("escolhametodo.html")
+
+
+@app.route('/resultadolt_tran', methods=['GET', 'POST'])
+def resultadolt_tran():
+    data_atual = datetime.datetime.now()
+    dia = data_atual.day
+    mes = data_atual.month
+    ano = data_atual.year
+
+    # Formato desejado para a data (dia/mês/ano)
+    data_formatada = f"{dia}/{mes}/{ano}"
+    nome_projeto = request.form['nome_projeto']
+    tensao_linha = request.form['tensao']
+    distancia = request.form['tipo_distancia']
+    freq = request.form['freq']
+    
+    P_shunt, C_shunt, capacitancias = capacitancia()
+    dados = {
+        'nome_projeto': nome_projeto,
+        'coeficiente_potecial_proprio': P_shunt,
+        'coeficiente_potecial_mutuo': C_shunt,
+        'capacitancias' : capacitancias,
+        'freq': freq,
+        'distancia': distancia,
+        'data': data_formatada}
+
+    distancias_ate_imagem, distancias_entre_condutores, nome_distancia_condutores = calcular_distancias()
+    return render_template('r_lt_tran.html', dist_imagens=distancias_ate_imagem, dist_entre_condutores=distancias_entre_condutores, condutores=nome_distancia_condutores,
+                           dados=dados)
+
 
 
 if __name__ == '__main__':

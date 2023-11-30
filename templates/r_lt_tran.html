@@ -1,0 +1,218 @@
+{% extends 'base.html' %} {% block conted %}
+<title>Relatório de Engenharia</title>
+
+<link
+  href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+  rel="stylesheet"
+/>
+<style>
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 10px;
+      font-size: 18px;
+    }
+   .slidervalue {
+      font-size: 24px;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+    /* Estilizando a exibição do valor */
+    #distanceValue {
+      display: block;
+      text-align: center;
+      font-size: 24px;
+      margin-top: 10px;
+    }
+  .custom-container {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+    margin-top: 50px;
+  }
+  .result-item {
+    margin-bottom: 20px;
+  }
+  .destaque {
+    text-align: center; /* Centraliza o conteúdo */
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; /* Altera a fonte */
+}
+
+.containerr {
+    background-color: #f0f0f0; /* Cor de fundo mais escura */
+    padding: 10px 20px; /* Adiciona espaçamento interno ao redor dos resultados */
+    border-radius: 8px; /* Adiciona bordas arredondadas */
+    margin: 10px 0; /* Adiciona espaçamento entre os containers */
+}
+
+.resultados h2 {
+    font-family: "Roboto", Arial, sans-serif; /* Altera a fonte dos resultados */
+    font-size: 24px; /* Aumenta o tamanho da fonte dos resultados */
+    font-weight: bold; /* Define negrito para os resultados */
+    margin: 5px 0; /* Adiciona espaçamento entre os resultados */
+}
+
+.resultados span {
+    font-weight: normal; /* Define o peso normal para o texto dentro do container */
+}
+</style>
+
+<body>
+  <div class="container custom-container">
+    <h1 class="text-center mb-4">Relatório Resultados</h1>
+    <div
+      class="container custom-container border rounded p-4 shadow-sm bg-light"
+    >
+      <h2 class="text-center mb-4 display-4">{{ dados.nome_projeto }}</h2>
+      <div class="row">
+        <div class="col-md-6">
+          <h3>Distância da linha:</h3>
+          <p>{{ dados.distancia }}</p>
+        </div>
+        <div class="col-md-6">
+          <h3>Tensão da linha [kV]:</h3>
+          <p>{{ dados.tensao_linha }}</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <h3>Frequência [Hz]:</h3>
+          <p>{{ dados.freq }}</p>
+        </div>
+        <div class="col-md-6">
+          <h3>Data:</h3>
+          <p>{{ dados.data}}</p>
+        </div>
+      </div>
+
+      <hr />
+      <!-- Linha horizontal para separar os dados -->
+
+      <h3>Informações do Projeto:</h3>
+      <p>Matriz Shunt [C], Potencial Próprio / Mútuo .</p>
+      <p>Transposição: Sim</p>
+    </div>
+
+    <div class="container custom-container">
+      <div class="result-item">
+        <h2>Distâncias Entre os Condutores:</h2>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Condutores</th>
+              <th>Distância (metros)</th>
+              <th>Distância das Imagens (metros)</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for i in range(dist_entre_condutores|length) %} {% set
+            distancia_entre = dist_entre_condutores[i] %} {% set
+            distancia_imagens = dist_imagens[i] %} {% if distancia_entre and
+            distancia_imagens %}
+            <tr>
+              <td>{{ condutores[i] }}</td>
+              <td>{{ distancia_entre }}</td>
+              <td>{{ distancia_imagens }}</td>
+            </tr>
+            {% endif %} {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <div class="container">
+        <div>
+          <h1 class="text-center mb-4">
+            Matriz Coenficiente de Potencial Próprio:
+          </h1>
+          <img
+            src="{{ url_for('static', filename='coeficientepp.jpg') }}"
+            class="img-fluid w-50 mx-auto d-block"
+            alt="coeficientepp"
+          />
+          <p style="font-size: 16px;">
+           Os coeficientes de potencial são termos que nos ajudam a descrever o potencial de um condutor em função das cargas de cada um deles.
+          </p>
+          <ul style="font-size: 16px;">
+            <li>
+              As distâncias de cada sub-condutor às imagens dos demais são iguais a 2*h.
+            </li>
+            <li>
+              As alturas de todos os sub-condutores em relação ao solo são iguais à altura do centro do feixe, neste caso nossos condutores não estão dispostos em um formato de feixe
+            </li>
+          </ul>
+        </div>
+
+        <h1>Matriz Coeficiente de Potencial Próprio:</h1>
+        <table class="table table-bordered">
+          <tbody>
+            {% for row in dados.coeficiente_potecial_proprio %}
+            <tr>
+              {% for value in row %}
+              <td>{{ value }}</td>
+              {% endfor %}
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <h1>Matriz Coeficiente de Potencial Mútuo</h1>
+        <table class="table table-bordered">
+          <tbody>
+            {% for row in dados.coeficiente_potecial_mutuo %}
+            <tr>
+              {% for value in row %}
+              <td>{{ value }}</td>
+              {% endfor %}
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <div class="container">
+        <div>
+          <h1 class="text-center mb-4">
+            Resultado da Capacitância para os condutores
+          </h1>
+          <img
+            src="{{ url_for('static', filename='capacitancia.jpg')}}"
+            class="img-fluid w-50 mx-auto d-block"
+            alt="capacitancia"
+          />
+          <p style="font-size: 16px;">
+            A capacitância afeta a transmissão de energia elétrica em linhas de transmissão, introduzindo atraso de fase, influenciando a impedância da linha, limitando a transmissão em altas frequências e sendo responsável pelo efeito Ferranti em condições de baixa carga. Gerenciar a capacitância é crucial para garantir a eficiência e a estabilidade dos sistemas de transmissão de energia elétrica.
+            
+          </p>
+          <ul style="font-size: 16px;">
+            <li>
+                A capacitância pode ser encontrada ao relacionar os coeficientes de indução (q = cV) e os coeficientes 
+                de potencial (V = Pq)
+            </li>
+            <li>
+                Comparando as equações, concluímos que a matriz inversa da matriz dos coeficientes de potencial é a matriz de capacitâncias!
+            </li>
+          </ul>
+          <div class="destaque">
+            <h1>Capacitância própria:</h1>
+            <div class="resultados">
+                <div class="containerr">
+                    <h2>Capacitância Condutor A até o Solo: <span>{{ dados.capacitancias[0] }}[nF/m]</span> </h2>
+                </div>
+                <div class="containerr">
+                    <h2>Capacitância Condutor B até o Solo: <span>{{ dados.capacitancias[1] }}[nF/m]</span></h2>
+                </div>
+                <div class="containerr">
+                    <h2>Capacitância Condutor C até o Solo: <span>{{ dados.capacitancias[2] }}[nF/m]</span></h2>
+                </div>
+            </div>
+        </div>
+            
+            
+        
+      </div>
+      <hr />
+      
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+{% endblock %}

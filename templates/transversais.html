@@ -31,7 +31,8 @@
 <body>
   <div class="container custom-container">
     <h1 class="text-center mb-4">Calculadora de Linha de Transmissão</h1>
-    <form id="myform" action="/resultadolt" method="post">
+    <h2 class="text-center mb-4">Parametros Transversais</h2>
+    <form id="myform" action="/resultadolt_tran" method="post">
       <div class="container mb-4">
         <h4>Informações do Projeto</h4>
         <div class="form-group">
@@ -47,7 +48,7 @@
         <div class="form-group">
           <label for="tipo_metodo">Tipo de Método:</label>
           <select class="custom-select" name="tipo_metodo">
-            <option value="param_log">Parametros Longitudinais (LT's)</option>
+            <option value="param_log">Parametros Transversais (LT's)</option>
           </select>
         </div>
         <div class="row">
@@ -61,12 +62,12 @@
                     class="form-check-input"
                     id="output_z"
                     name="output_z"
-                    value="Matriz de Impedância [Z]"
+                    value="Matriz Shunt [Z]"
                     checked 
                     disabled
                   />
                   <label class="form-check-label" for="output_z"
-                    >Matriz de Impedância [Z]</label
+                    >Matriz Shunt [C]</label
                   >
                 </div>
               </div>
@@ -96,18 +97,7 @@
         </div>
         <div class="container">
           <h4>Dados Da Linha de Transmissão</h4>
-          <div class="form-group">
-            <label for="rho">Rho [Ohm]:</label>
-            <input
-              type="number"
-              step="any"
-              class="form-control"
-              id="rho"
-              name="rho"
-              value="100"
-              required
-            />
-          </div>
+          
           <div class="form-group">
             <label for="freq">Freq [Hz]:</label>
             <input
@@ -122,10 +112,10 @@
           </div>
           <div class="form-group">
             <label for="distancia">Distância [km]:</label>
-            <select class="form-control" name="tipo_distancia">
-              <option value="Linha Curta">Linha Curta [0 a 80 km]</option>
-              <option value="Media">Média [80 a 240 km]</option>
-              <option value="Longa">Longa [Acima de 240 km]</option>
+            <select class="form-control" name="tipo_distancia" >
+              <option value="Linha Curta[0 a 80 km]">Linha Curta [0 a 80 km]</option>
+              <option value="Linha Média[80 a 240 km]">Média [80 a 240 km]</option>
+              <option value="Linha Longa[Acima de 240 km]">Longa [Acima de 240 km]</option>
             </select>
           </div>
           <div class="form-group">
@@ -151,28 +141,7 @@
               required
             />
           </div>
-          <div class="form-group">
-            <label for="form-control">Raio Médio Geométrico:</label>
-            <input
-              type="number"
-              step="any"
-              class="form-control"
-              id="rmg"
-              name="rmg"
-              required
-            />
-          </div>
-          <div class="form-group">
-            <label for="rd">Rd:</label>
-            <input
-              type="number"
-              step="any"
-              class="form-control"
-              id="rd"
-              name="rd"
-              required
-            />
-          </div>
+          
         </div>
         
       </div>
