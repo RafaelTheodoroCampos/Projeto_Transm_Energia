@@ -99,4 +99,4 @@ def resultadolt_tran():
 
 
 if __name__ == '__main__':
-    app.run(host='192.168.1.64', port='5000', debug=True)
+    app.run(host='172.16.231.103', port='5000', debug=True)

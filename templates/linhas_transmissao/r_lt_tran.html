@@ -193,19 +193,34 @@
           <div class="destaque">
             <h1>Capacitância própria:</h1>
             <div class="resultados">
+                {% if dados.capacitancias[0] %}
                 <div class="containerr">
-                    <h2>Capacitância Condutor A até o Solo: <span>{{ dados.capacitancias[0] }}[nF/m]</span> </h2>
+                    <h2>Capacitância Condutor A até o Solo: <span>{{ dados.capacitancias[0] }}[nF/m]</span></h2>
                 </div>
+                {% endif %}
+                {% if dados.capacitancias[1] %}
                 <div class="containerr">
                     <h2>Capacitância Condutor B até o Solo: <span>{{ dados.capacitancias[1] }}[nF/m]</span></h2>
                 </div>
+                {% endif %}
+                {% if dados.capacitancias[2] %}
                 <div class="containerr">
                     <h2>Capacitância Condutor C até o Solo: <span>{{ dados.capacitancias[2] }}[nF/m]</span></h2>
                 </div>
+                {% endif %}
+                {% if dados.capacitancias[3] %}
+                <div class="containerr">
+                    <h2>Capacitância Cabo Para-Raio até o Solo: <span>{{ dados.capacitancias[3] }}[nF/m]</span></h2>
+                </div>
+                {% endif %}
+                {% if dados.capacitancias[4] %}
+                <div class="containerr">
+                    <h2>Capacitância para o Segundo Cabo Para-Raio até o Solo: <span>{{ dados.capacitancias[4] }}[nF/m]</span></h2>
+                </div>
+                {% endif %}
             </div>
+            
         </div>
-            
-            
         
       </div>
       <hr />

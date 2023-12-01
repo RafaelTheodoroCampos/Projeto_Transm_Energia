@@ -53,6 +53,7 @@ def calcular_distancias():
                 ((distancia ** 2) + (2 * alturas_condutores[i]) ** 2) ** 0.5, 2)
             distancias_ate_imagem.append(distancia_imagem)
 
+    
    # print("Distancia img", distancias_ate_imagem)
    # print("Distancia condutor", distancias_entre_condutores)
    # print("Nome", nome_distancia_condutores)
