@@ -22,6 +22,7 @@ Após a instalação das ferramenta necessárias:
 
 ```
 Baixe os arquivos se encontram na pagina do projeto
+Ative as variáveis de ambiente "venv\Scripts\activate" no terminal
 ```
 
 Iniciando o programa:
