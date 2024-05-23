@@ -23,7 +23,7 @@ Após instalar as ferramentas necessárias, siga os passos abaixo:
  ```bash
 python app.py
 ```
-### 📖 Descrição dos Métodos e Algumas Imagens
-![image](https://github.com/RafaelTheodoroCampos/Projeto_Transm_Energia/assets/94502396/eea53794-55f8-4024-b550-b79c3d205b33)
-![image](https://github.com/RafaelTheodoroCampos/Projeto_Transm_Energia/assets/94502396/ad400052-0ee8-4b9f-8fa8-3b3f657395fe)
-
+<p align="center">
+  <img src="https://github.com/RafaelTheodoroCampos/Projeto_Transm_Energia/assets/94502396/eea53794-55f8-4024-b550-b79c3d205b33" width="400"/>
+  <img src="https://github.com/RafaelTheodoroCampos/Projeto_Transm_Energia/assets/94502396/ad400052-0ee8-4b9f-8fa8-3b3f657395fe" width="400"/>
+</p>
