@@ -1,34 +1,22 @@
-# Cálculos de linhas de transimissão com diferentes métodos CEFET-RJ
+# Cálculos de Linhas de Transmissão com Diferentes Métodos - CEFET-RJ
 
-O projeto consiste em um website que permite o cálculo de parametros de linha de tansmissão de forma educativa e comparando os resultados com diferentes métodos.
+O projeto consiste em um website educativo que permite o cálculo de parâmetros longitudinais e transversais de linhas de transmissão, comparando os resultados obtidos por diferentes métodos. Este programa realiza cálculos utilizando a matriz de impedância, incluindo a consideração de para-raios. 
 
 ## 🚀 Começando
 
-Essas instruções permitirão que você obtenha uma cópia do projeto em operação na sua máquina local.
+Estas instruções permitirão que você obtenha uma cópia do projeto em funcionamento na sua máquina local.
 
 ### 📋 Pré-requisitos
-É necessário a installação do [PostgreSQL](https://www.postgresql.org/).
-É necessário ter instalado o [Python](https://www.python.org/) na versão 3+,
-biblioteca Flask e iniciar as dependências do projeto pela varíaveis de ambiente
 
-```
+- [Python 3+](https://www.python.org/)
+- Biblioteca Flask
+
+Para instalar Flask, execute o comando:
+
+```bash
 pip install Flask
-
-```
-
 ### 🔧 Instalação
+Após instalar as ferramentas necessárias, siga os passos abaixo:
 
-Após a instalação das ferramenta necessárias:
-
-```
-Baixe os arquivos se encontram na pagina do projeto
-Ative as variáveis de ambiente "venv\Scripts\activate" no terminal
-```
-
-Iniciando o programa:
-```
-Execute o app.py, através do comando "python app.py" no terminal do editor
-```
-
-
-
+Baixe os arquivos do projeto da página do projeto.
+Ative as variáveis de ambiente:
